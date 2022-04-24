@@ -18,6 +18,8 @@
             placeholder="请输入账号"
             prefix-icon="iconfont icon-user"
             v-model="loginForm.username"
+            autofocus
+            clearable>
           ></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
@@ -26,6 +28,7 @@
             placeholder="请输入密码"
             prefix-icon="iconfont icon-3702mima"
             v-model="loginForm.password"
+            @keyup.enter.native="login"
           ></el-input>
         </el-form-item>
         <el-form-item class="btns">
@@ -53,14 +56,14 @@ export default {
       loginFormRules: {
         username: [
           { required: true, message: '请输入账号' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入密码' },
           {
             min: 6,
-            max: 12,
-            message: '长度在 6 到 12 个字符',
+            max: 15,
+            message: '长度在 6 到 15 个字符',
             trigger: 'blur'
           }
         ]
@@ -119,7 +122,7 @@ export default {
       border: 2px solid @avatar-box-border-color;
       border-radius: 50%;
       overflow: hidden;
-      box-shadow: @box-shadow-color 3px 3px;
+      box-shadow: @box-shadow-color 2px 2px;
       position: absolute;
       top: 50%;
       left: 50%;

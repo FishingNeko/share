@@ -1,18 +1,69 @@
 <template>
-  <div><el-button type="info" @click="logout">登出</el-button></div>
+  <div class="home-container">
+    <el-container>
+      <!-- 头部区 -->
+      <el-header>
+        <HomeHeader></HomeHeader>
+      </el-header>
+      <el-container>
+        <!-- 侧边栏区 -->
+        <el-aside :width="isCollapse ? asideWidthSlow+'px' : asideWidth+'px'">
+          <HomeAside @asideWidthChange="this.getAsideWidthChange"></HomeAside>
+        </el-aside>
+        <!-- 主体区 -->
+        <el-main>
+          <HomeMain></HomeMain>
+        </el-main>
+      </el-container>
+    </el-container>
+  </div>
 </template>
 
 <script>
+import HomeHeader from '@/components/HomeInnerCompontes/HomeHeader.vue'
+import HomeAside from '@/components/HomeInnerCompontes/HomeAside.vue'
+import HomeMain from '@/components/HomeInnerCompontes/HomeMain.vue'
 export default {
   name: 'store-home',
+  data () {
+    return {
+      // 侧边栏是否伸缩
+      isCollapse: false,
+      // 侧边栏原来的宽度
+      asideWidth: 200,
+      // 侧边栏收缩后的宽度
+      asideWidthSlow: 64
+    }
+  },
+  components: {
+    HomeAside,
+    HomeMain,
+    HomeHeader
+  },
   methods: {
-    // 登出账号
-    logout () {
-      window.sessionStorage.removeItem('token')
-      this.$router.push('/login')
+    // 获取子组件传来的伸缩标志
+    getAsideWidthChange (val) {
+      this.isCollapse = val
     }
   }
 }
+
 </script>
 
-<style></style>
+<style lang="less" scoped>
+.home-container {
+  height: 100%;
+}
+
+.el-header{
+  padding: 0;
+}
+
+.el-aside{
+  transition: width .3s;
+}
+
+.el-container {
+  height: 100%;
+}
+</style>
