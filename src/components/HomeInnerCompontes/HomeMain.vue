@@ -1,21 +1,14 @@
 <template>
   <div>
+    <!-- home-main区，组件的切换主要在此显示 -->
     <router-view></router-view>
-     </div>
+  </div>
 </template>
 
 <script>
-
 export default {
   name: 'home-main'
 }
 </script>
 
-<style lang="less" scoped>
-.el-main {
-  background-color: #eaedf1;
-  color: #333;
-  text-align: center;
-  line-height: 160px;
-}
-</style>
+<style lang="less" scoped></style>

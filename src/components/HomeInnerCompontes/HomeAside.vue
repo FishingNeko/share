@@ -76,7 +76,7 @@ export default {
       this.btnSelectType = !this.btnSelectType
       this.$emit('asideWidthChange', this.isCollapse)
     },
-    // 传递侧边栏点击后的状态
+    // 保存侧边栏点击后的状态
     saveNavState (path) {
       window.sessionStorage.setItem('activePath', path)
       this.activePath = path

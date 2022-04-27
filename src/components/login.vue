@@ -101,17 +101,18 @@ export default {
 @avatar-box-height: 130px;
 @avatar-box-width: 130px;
 @avatar-box-border-color: #2b4b6b;
-@box-shadow-color: rgb(28, 60, 77);
 
 .login_container {
   height: 100%;
-  background-color: #2b4b6b;
+  // background-image: url(../assets/backgroundIMG.svg);
+  background-image:
+  linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+  url(../assets/backgroundIMG.svg);
   .login_box {
     width: @login-box-height;
     height: @login-box-width;
     background-color: #fff;
     border-radius: 3px;
-    box-shadow: @box-shadow-color 8px 8px;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -119,10 +120,9 @@ export default {
     .avatar_box {
       width: @avatar-box-width;
       height: @avatar-box-height;
-      border: 2px solid @avatar-box-border-color;
+      border: 1px solid @avatar-box-border-color;
       border-radius: 50%;
       overflow: hidden;
-      box-shadow: @box-shadow-color 2px 2px;
       position: absolute;
       top: 50%;
       left: 50%;

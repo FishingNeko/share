@@ -53,6 +53,7 @@ export default {
 <style lang="less" scoped>
 .home-container {
   height: 100%;
+  overflow: hidden;
 }
 
 .el-header{

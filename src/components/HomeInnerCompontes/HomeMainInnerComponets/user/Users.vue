@@ -57,21 +57,21 @@
             <div>
               <!-- 编辑按钮 -->
               <el-tooltip
-                content="编辑"
-                placement="top-start"
+                content="编辑信息"
+                placement="top"
                 :enterable="false"
               >
                 <el-button
                   type="primary"
                   icon="el-icon-edit"
                   size="small"
-                  @click="showEditDialog(scope.row.id)"
+                  @click="EditDialog(scope.row.id)"
                 ></el-button>
               </el-tooltip>
               <!-- 删除按钮 -->
               <el-tooltip
-                content="删除"
-                placement="top-start"
+                content="删除用户"
+                placement="top"
                 :enterable="false"
               >
                 <el-button
@@ -83,14 +83,15 @@
               </el-tooltip>
               <!-- 设置按钮 -->
               <el-tooltip
-                content="设置"
-                placement="top-start"
+                content="设置角色"
+                placement="top"
                 :enterable="false"
               >
                 <el-button
                   type="warning"
                   icon="el-icon-setting"
                   size="small"
+                  @click="getRole(scope.row)"
                 ></el-button>
               </el-tooltip>
             </div>
@@ -101,7 +102,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="Number(queryInfo.pagenum)"
-        :page-sizes="[3, 6, 10]"
+        :page-sizes="[3, 6, 8]"
         :page-size="Number(queryInfo.pagesize)"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
@@ -114,7 +115,6 @@
       title="添加用户"
       :visible.sync="addDialogVisible"
       width="60%"
-      :before-close="showAddUserDialog"
       @close="addDialogClosed()"
     >
       <!-- 添加用户的表单区 -->
@@ -166,7 +166,6 @@
       title="修改用户信息"
       :visible.sync="editDialogVisible"
       width="60%"
-      :before-close="showAddUserDialog"
     >
       <!-- 编辑用户信息的表单区 -->
       <el-form
@@ -194,6 +193,32 @@
         <el-button type="primary" @click="editUserSurely">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 添加角色的对话框 -->
+    <el-dialog
+      title="添加角色"
+      :visible.sync="setRoleDialogVisible"
+      width="40%"
+    >
+      <div>
+        <p>用户信息：{{setRoleForm.username}}</p>
+        <p>用户角色：{{setRoleForm.role_name}}</p>
+        <span>分配新角色：</span>
+      <el-select v-model="selectedRoleId" placeholder="请选择角色">
+    <el-option
+      v-for="item in roleList"
+      :key="item.id"
+      :label="item.roleName"
+      :value="item.id">
+    </el-option>
+  </el-select>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="setRoleDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="setRoleSurely"
+          >确 定</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -212,27 +237,31 @@ export default {
       },
       // 用户信息列表
       userList: [],
+      // 所有角色列表
+      roleList: [],
       // 总数据条数
       total: 0,
+      // 选中的角色ID
+      selectedRoleId: '',
       // 添加用户的对话框是否可见
       addDialogVisible: false,
       // 修改用户信息的对话框是否可见
       editDialogVisible: false,
       // 删除用户信息的对话框是否可见
       delDialogVisible: false,
-      // 添加用户时存储的表单
+      // 设置角色信息的对话框是否可见
+      setRoleDialogVisible: false,
+      // 添加用户的表单
       addForm: {
         username: '',
         password: '',
         email: '',
         mobile: ''
       },
-      // 修改用户信息时的存储的表单
-      editForm: {
-        id: '',
-        email: '',
-        mobile: ''
-      },
+      // 修改用户信息的表单
+      editForm: {},
+      // 设置用户角色的表单
+      setRoleForm: {},
       // 用户表单的验证规则
       formRules: {
         username: [
@@ -282,10 +311,6 @@ export default {
       this.queryInfo.pagenum = newPageNum
       this.getUserList()
     },
-    // 显示添加用户的对话框
-    showAddUserDialog () {
-      this.addDialogVisible = true
-    },
     // 将用户状态修改后的信息提交到数据库中
     async dataChange (userInfo) {
       const { data: res } = await this.$http.put(
@@ -318,27 +343,23 @@ export default {
         this.getUserList()
         this.$message.success('添加新用户成功！')
       })
-      this.addDialogVisible = !this.addDialogVisible
     },
     // 确定编辑用户
-    editUserSurely () {
+    async editUserSurely () {
       this.$refs.editFormRef.validate(async (validResult) => {
-        console.log(validResult)
         if (!validResult) return this.$message.error('编辑用户失败，请检查格式')
-        console.log(this.editForm)
         const { data: res } = await this.$http.put(
           `users/${this.editForm.id}`,
           this.editForm
         )
-        console.log(res)
         if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
         this.editDialogVisible = false
         this.getUserList()
         this.$message.success('修改用户信息成功！')
       })
     },
-    // 编辑用户
-    async showEditDialog (userId) {
+    // 根据ID查询需要编辑的用户
+    async EditDialog (userId) {
       this.editDialogVisible = true
       const { data: res } = await this.$http.get('/users/' + userId)
       if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
@@ -346,11 +367,11 @@ export default {
     },
     // 根据用户ID删除用户
     async delUser (userId) {
-      const confirmResult = await this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      const confirmResult = await this.$confirm('确定删除该用户吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
-      }).catch(result => result) // 去除取消按钮的报错消息
+      }).catch((result) => result) // 返回可能的错误
 
       // confirm结果为确定 cancel结果为取消
       if (confirmResult !== 'confirm') return this.$message.info('已取消删除')
@@ -359,6 +380,28 @@ export default {
       if (res.meta.status !== 200) return this.message.error(res.meta.msg)
       this.getUserList()
       this.$message.success('删除成功')
+    },
+    // 获取用户角色信息
+    async getRole (userInfo) {
+      this.setRoleDialogVisible = true
+      this.setRoleForm = userInfo
+      const { data: res } = await this.$http.get('roles')
+      if (res.meta.status !== 200) return this.$message.error('获取用户角色列表失败，请检查网络！')
+      this.roleList = res.data
+    },
+    // 确定修改角色
+    async setRoleSurely () {
+      if (!this.selectedRoleId) {
+        this.$message.error('请选择角色')
+      }
+      const { data: res } = await this.$http.put(`users/${this.setRoleForm.id}/role`, { rid: this.selectedRoleId })
+      if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
+      this.setRoleDialogVisible = false
+      this.getUserList()
+      this.$message.success('修改用户角色成功！')
+      // 关闭后重置选中的用户的id与角色表单
+      this.setRoleForm = {}
+      this.roleList = []
     }
   }
 }

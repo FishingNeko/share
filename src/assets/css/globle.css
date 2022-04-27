@@ -6,12 +6,13 @@ html,body,#app{
 }
 
 .el-breadcrumb{
-  margin-bottom: 20px;
   font-size: 14px;
 }
 
 .el-card{
+  margin-top: 20px;
   box-shadow: 2px 3px rgb(0, 0, 0,.2) !important;
+  margin-bottom: 20px;
 }
 
 .el-table{
