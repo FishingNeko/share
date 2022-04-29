@@ -16,7 +16,7 @@
         <el-table-column type="expand">
           <!-- 展开列的作用域插槽 -->
           <template v-slot="scope">
-            <div class="el-row-box">
+            <div>
               <el-row
                 v-for="(item, i) in scope.row.children"
                 :key="item.id"

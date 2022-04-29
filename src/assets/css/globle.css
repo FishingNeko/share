@@ -19,3 +19,7 @@ html,body,#app{
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
+.el-cascader-menu{
+  height: 300px;
+}
