@@ -124,7 +124,7 @@
             }"
             @change="parentCateChanged"
             clearable
-            change-on-select
+            checkStrictly
           ></el-cascader>
         </el-form-item>
       </el-form>
