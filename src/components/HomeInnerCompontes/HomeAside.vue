@@ -32,7 +32,7 @@
         </template>
         <!-- 二级菜单 -->
         <el-menu-item-group v-for="subitem in item.children" :key="subitem.id">
-          <el-menu-item :index="subitem.path" @click="saveNavState(subitem.path)">
+          <el-menu-item :index="'/home/' + subitem.path" @click="saveNavState(subitem.path)">
             <i class="el-icon-menu"></i>
             <span>{{ subitem.authName }}</span>
           </el-menu-item>
@@ -79,7 +79,7 @@ export default {
     // 保存侧边栏点击后的状态
     saveNavState (path) {
       window.sessionStorage.setItem('activePath', path)
-      this.activePath = path
+      this.activePath = ('/home/' + path)
     }
   }
 }

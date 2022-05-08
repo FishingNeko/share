@@ -27,3 +27,20 @@ html,body,#app{
 .el-alert{
   margin-bottom: 20px;
 }
+
+.el-step__title {
+  font-size: 12px ;
+  line-height: 24px;
+}
+
+.el-slider__runway.show-input {
+  margin-left: 10px;
+}
+
+.quill-editor {
+  margin-bottom: 20px;
+}
+
+.ql-container{
+  min-height: 300px;
+}

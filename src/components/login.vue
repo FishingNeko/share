@@ -19,7 +19,8 @@
             prefix-icon="iconfont icon-user"
             v-model="loginForm.username"
             autofocus
-            clearable>
+            clearable
+            @keyup.enter.native="login"
           ></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
@@ -32,9 +33,7 @@
           ></el-input>
         </el-form-item>
         <el-form-item class="btns">
-          <el-button type="primary" @click="login"
-            >登录</el-button
-          >
+          <el-button type="primary" @click="login">登录</el-button>
           <el-button type="info" @click="resetLoginForm">重置</el-button>
         </el-form-item>
       </el-form>
@@ -56,7 +55,12 @@ export default {
       loginFormRules: {
         username: [
           { required: true, message: '请输入账号' },
-          { min: 3, max: 10, message: '长度在 3 到 10 个字符', trigger: 'blur' }
+          {
+            min: 3,
+            max: 10,
+            message: '长度在 3 到 10 个字符',
+            trigger: 'blur'
+          }
         ],
         password: [
           { required: true, message: '请输入密码' },
@@ -77,11 +81,15 @@ export default {
     },
     // 点击登录后的路由判断
     login () {
-      this.$refs.loginFormRef.validate(async (valid) => { // 后端返回的结果是promise对象，故用async-await并结构数据
-        if (valid) { // valid判断用户输入的格式决定是否发起请求
+      this.$refs.loginFormRef.validate(async (valid) => {
+        // 后端返回的结果是promise对象，故用async-await并结构数据
+        if (valid) {
+          // valid判断用户输入的格式决定是否发起请求
           const { data: res } = await this.$http.post('login', this.loginForm)
           // 登录失败
-          if (res.meta.status !== 200) return this.$message.error('账号或密码错误')
+          if (res.meta.status !== 200) {
+            return this.$message.error('账号或密码错误')
+          }
           // 登录成功
           this.$message.success('登录成功')
           window.sessionStorage.setItem('token', res.data.token)
@@ -105,9 +113,12 @@ export default {
 .login_container {
   height: 100%;
   // background-image: url(../assets/backgroundIMG.svg);
-  background-image:
-  linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-  url(../assets/backgroundIMG.svg);
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2)
+    ),
+    url(../assets/backgroundIMG.svg);
   .login_box {
     width: @login-box-height;
     height: @login-box-width;
