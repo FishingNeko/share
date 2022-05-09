@@ -326,6 +326,7 @@ export default {
         const newInfo = { attr_id: item.attr_id, attr_vals: item.attr_vals }
         this.addGoodsForm.attrs.push(newInfo)
       })
+      // 发起添加请求
       const { data: res } = await this.$http.post('goods', this.addGoodsForm)
       console.log(res)
       if (res.meta.status !== 201) return this.$message.error('添加失败，请检查网络！')

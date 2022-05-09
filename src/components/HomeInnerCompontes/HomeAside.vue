@@ -78,7 +78,7 @@ export default {
     },
     // 保存侧边栏点击后的状态
     saveNavState (path) {
-      window.sessionStorage.setItem('activePath', path)
+      window.sessionStorage.setItem('activePath', '/home/' + path)
       this.activePath = ('/home/' + path)
     }
   }
