@@ -103,13 +103,13 @@
         ref="editFormRef"
         label-width="100px"
       >
-        <el-form-item label="省市区/县" prop="">
+        <el-form-item label="省市区/县" prop="fuzzyAddress">
           <el-cascader
             :options="cityData"
             v-model="editForm.fuzzyAddress"
           ></el-cascader>
         </el-form-item>
-        <el-form-item label="详细地址" prop="name">
+        <el-form-item label="详细地址" prop="clearAddress">
           <el-input v-model="editForm.clearAddress"></el-input>
         </el-form-item>
       </el-form>
@@ -168,7 +168,8 @@ export default {
       progressList: [],
       // 表单验证规则
       formRules: {
-        test: [{ required: true, message: '不能为空', trigger: blur }]
+        fuzzyAddress: [{ required: true, message: '不能为空', trigger: 'blur' }],
+        clearAddress: [{ required: true, message: '不能为空', trigger: 'blur' }]
       },
       // 城市县区列表数据
       cityData: cityData,
@@ -281,8 +282,7 @@ export default {
       this.$refs.editFormRef.validate((validResult) => {
         if (!validResult) return this.$message.error('格式错误，请检查表单！')
         this.editDialogVisible = false
-        this.this.$message.success('编辑成功！')
-        return null
+        this.$message.success('编辑成功！')
       })
     },
     // 编辑的对话框关闭时
