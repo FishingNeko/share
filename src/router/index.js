@@ -1,17 +1,67 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Login from '@/components/Login.vue'
-import Home from '@/components/Home.vue'
-import Welcome from '@/components/HomeInnerCompontes/Welcome.vue'
-import Users from '@/components/HomeInnerCompontes/HomeMainInnerComponets/user/Users.vue'
-import Rights from '@/components/HomeInnerCompontes/HomeMainInnerComponets/power/Rights.vue'
-import Roles from '@/components/HomeInnerCompontes/HomeMainInnerComponets/power/Roles.vue'
-import Cate from '@/components/HomeInnerCompontes/HomeMainInnerComponets/goods/Cate.vue'
-import Params from '@/components/HomeInnerCompontes/HomeMainInnerComponets/goods/Params.vue'
-import Goods from '@/components/HomeInnerCompontes/HomeMainInnerComponets/goods/Goods.vue'
-import Orders from '@/components/HomeInnerCompontes/HomeMainInnerComponets/orders/Orders.vue'
-import Reports from '@/components/HomeInnerCompontes/HomeMainInnerComponets/reports/Reports.vue'
-import AddGoods from '@/components/HomeInnerCompontes/HomeMainInnerComponets/goods/AddGoods.vue'
+// import Login from '@/components/Login.vue'
+// import Home from '@/components/Home.vue'
+// import Welcome from '@/components/HomeInnerCompontes/Welcome.vue'
+// import Users from '@/components/HomeInnerCompontes/HomeMainInnerComponets/user/Users.vue'
+// import Rights from '@/components/HomeInnerCompontes/HomeMainInnerComponets/power/Rights.vue'
+// import Roles from '@/components/HomeInnerCompontes/HomeMainInnerComponets/power/Roles.vue'
+// import Cate from '@/components/HomeInnerCompontes/HomeMainInnerComponets/goods/Cate.vue'
+// import Params from '@/components/HomeInnerCompontes/HomeMainInnerComponets/goods/Params.vue'
+// import Goods from '@/components/HomeInnerCompontes/HomeMainInnerComponets/goods/Goods.vue'
+// import Orders from '@/components/HomeInnerCompontes/HomeMainInnerComponets/orders/Orders.vue'
+// import Reports from '@/components/HomeInnerCompontes/HomeMainInnerComponets/reports/Reports.vue'
+// import AddGoods from '@/components/HomeInnerCompontes/HomeMainInnerComponets/goods/AddGoods.vue'
+
+// 路由懒加载
+const Login = () =>
+  import(/* webpackChunkName: "Login-Home-Welcome" */ '@/components/Login.vue')
+const Home = () =>
+  import(/* webpackChunkName: "Login-Home-Welcome" */ '@/components/Home.vue')
+const Welcome = () =>
+  import(
+    /* webpackChunkName: "Login-Home-Welcome" */ '@/components/HomeInnerCompontes/Welcome.vue'
+  )
+
+const Users = () =>
+  import(
+    /* webpackChunkName: "Users-Rights-Roles" */ '@/components/HomeInnerCompontes/HomeMainInnerComponets/user/Users.vue'
+  )
+const Rights = () =>
+  import(
+    /* webpackChunkName: "Users-Rights-Roles" */ '@/components/HomeInnerCompontes/HomeMainInnerComponets/power/Rights.vue'
+  )
+const Roles = () =>
+  import(
+    /* webpackChunkName: "Users-Rights-Roles" */ '@/components/HomeInnerCompontes/HomeMainInnerComponets/power/Roles.vue'
+  )
+
+const Cate = () =>
+  import(
+    /* webpackChunkName: "Cate-Params" */ '@/components/HomeInnerCompontes/HomeMainInnerComponets/goods/Cate.vue'
+  )
+const Params = () =>
+  import(
+    /* webpackChunkName: "Cate-Params" */ '@/components/HomeInnerCompontes/HomeMainInnerComponets/goods/Params.vue'
+  )
+
+const Goods = () =>
+  import(
+    /* webpackChunkName: "Goods-AddGoods" */ '@/components/HomeInnerCompontes/HomeMainInnerComponets/goods/Goods.vue'
+  )
+const AddGoods = () =>
+  import(
+    /* webpackChunkName: "Goods-AddGoods" */ '@/components/HomeInnerCompontes/HomeMainInnerComponets/goods/AddGoods.vue'
+  )
+
+const Orders = () =>
+  import(
+    /* webpackChunkName: "Orders-Reports" */ '@/components/HomeInnerCompontes/HomeMainInnerComponets/orders/Orders.vue'
+  )
+const Reports = () =>
+  import(
+    /* webpackChunkName: "Orders-Reports" */ '@/components/HomeInnerCompontes/HomeMainInnerComponets/reports/Reports.vue'
+  )
 
 Vue.use(VueRouter)
 
