@@ -332,7 +332,6 @@ export default {
         // 文本框的输入值
         item.inputValue = ''
       })
-      console.log(res.data)
       if (this.activeName === 'many') {
         this.manyList = res.data
       }
@@ -425,7 +424,6 @@ export default {
     },
     // 添加标签
     async addTag (row) {
-      console.log(row.attr_id)
       // 若输入内容不合法
       if (row.inputValue.trim().length === 0) {
         row.inputVisible = false
@@ -468,7 +466,6 @@ export default {
         return this.$message.error('修改失败，请检查网络！')
       }
       this.$message.success('操作成功！')
-      console.log(res)
     }
   }
 }

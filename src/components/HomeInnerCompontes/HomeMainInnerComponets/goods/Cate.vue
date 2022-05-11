@@ -229,11 +229,9 @@ export default {
     },
     // 编辑分类
     editCate (t) {
-      console.log(t)
     },
     // 删除分类
     async delCate (cateId) {
-      console.log(cateId)
       const confirmResult = await this.$confirm('确定删除该分类吗？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -257,7 +255,6 @@ export default {
           'categories',
           this.addCateForm
         )
-        console.log(res)
         if (res.meta.status !== 201) { return this.$message.error('添加分类失败，请检查网络') }
         this.addCateDialogVisible = false
         this.getCateList()
@@ -280,7 +277,6 @@ export default {
         this.selectedKeys.length === 0
           ? 0
           : this.selectedKeys[this.selectedKeys.length - 1]
-      console.log(this.addCateForm)
     },
     // 添加分类对话框关闭后
     addCateDialogClosed () {
@@ -296,12 +292,10 @@ export default {
       const { data: res } = await this.$http.get(`categories/${cateId}`)
       if (res.meta.status !== 200) return this.$message.error('请求商品分类失败，请检查网络！')
       this.editCateForm = res.data
-      console.log(this.editCateForm)
     },
     // 确定编辑用户
     async editCateSurely () {
       const { data: res } = await this.$http.put(`categories/${this.editCateForm.cat_id}`, { cat_name: this.editCateForm.cat_name })
-      console.log(res)
       if (res.meta.status !== 200) return this.$message.error('编辑分类失败，请检查格式！')
       this.getCateList()
       this.$message.success('编辑分类名成功！')

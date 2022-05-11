@@ -257,7 +257,6 @@ export default {
       }
       this.total = res.data.total
       this.orderslist = res.data.goods
-      console.log(this.orderslist)
     },
     // 监听分页大小变化时
     handleSizeChange (pagesize) {
@@ -302,7 +301,6 @@ export default {
       // 数据接口已经停运，这里用静态假数据代替
       this.progressDialogVisible = true
       this.progressList = this.res.data
-      console.log(this.progressList)
     }
   }
 }

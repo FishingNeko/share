@@ -1,20 +1,13 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import './plugins/element.js'
 import '@/assets/css/globle.css'
 import '@/assets/fonts/iconfont.css'
 import axios from 'axios'
 import VueQuillEditor from 'vue-quill-editor'
 import NProgress from 'nprogress'
 
-import 'nprogress/nprogress.css'
-
-import 'quill/dist/quill.core.css' // import styles
-import 'quill/dist/quill.snow.css' // for snow theme
-import 'quill/dist/quill.bubble.css' // for bubble theme
-
-Vue.use(VueQuillEditor /* { default global options } */)
+Vue.use(VueQuillEditor)
 
 // 将axios挂载到vue的原型对象上
 Vue.prototype.$http = axios

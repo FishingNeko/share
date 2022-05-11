@@ -290,21 +290,17 @@ export default {
     },
     // 处理预览图片
     handlePreview (file) {
-      console.log(1)
       this.previewDialogVisible = true
       this.previewUrl = file.response.data.url
     },
     // 处理删除图片
     handleRemove (file) {
       const filePath = file.response.data.tmp_path
-      console.log(filePath)
       // 找到所删除图片的对应路径
       const i = this.addGoodsForm.pics.findIndex(
         (item) => item.pics === filePath
       )
-      console.log(i)
       this.addGoodsForm.pics.splice(i, 1)
-      console.log(this.addGoodsForm)
     },
     // 文件上传成功时
     upLoadSuccess (response) {
@@ -312,7 +308,6 @@ export default {
       const picObj = { pics: response.data.tmp_path }
       // 2.添加到表单中
       this.addGoodsForm.pics.push(picObj)
-      console.log(this.addGoodsForm)
     },
     // 添加商品
     async addGoods () {
@@ -328,7 +323,6 @@ export default {
       })
       // 发起添加请求
       const { data: res } = await this.$http.post('goods', this.addGoodsForm)
-      console.log(res)
       if (res.meta.status !== 201) return this.$message.error('添加失败，请检查网络！')
       this.$message.success('添加商品成功！')
       this.$router.push('/home/goods')
