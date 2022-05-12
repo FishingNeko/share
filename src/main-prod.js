@@ -12,7 +12,7 @@ Vue.use(VueQuillEditor)
 // 将axios挂载到vue的原型对象上
 Vue.prototype.$http = axios
 // axios请求的根路径
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1'
+axios.defaults.baseURL = 'http://43.138.78.53:8889/api/private/v1'
 // 为axios的请求头添加Authorization属性，方便登录后的验证
 axios.interceptors.request.use(config => {
   NProgress.start()
