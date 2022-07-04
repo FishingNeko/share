@@ -17,13 +17,14 @@
           <router-view></router-view>
         </el-main>
       </el-container>
+       <MyGit></MyGit>
     </el-container>
 </template>
 
 <script>
 import HomeHeader from '@/components/HomeInnerCompontes/HomeHeader.vue'
 import HomeAside from '@/components/HomeInnerCompontes/HomeAside.vue'
-
+import MyGit from './MyGit.vue'
 export default {
   name: 'store-home',
   data () {
@@ -38,7 +39,8 @@ export default {
   },
   components: {
     HomeAside,
-    HomeHeader
+    HomeHeader,
+    MyGit
   },
   methods: {
     // 获取子组件传来的伸缩标志
@@ -65,7 +67,7 @@ export default {
 .el-aside {
   transition: width 0.3s;
 }
-.el-main{
+.el-main {
   background-color: #eaedf1;
 }
 </style>

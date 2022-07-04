@@ -38,18 +38,21 @@
         </el-form-item>
       </el-form>
     </div>
+    <!-- 右下角gitee区 -->
+    <MyGit></MyGit>
   </div>
 </template>
 
 <script>
+import MyGit from './MyGit.vue'
 export default {
   name: 'log-in',
   data () {
     return {
       // 储存的登录表单数据
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       // 登录表单的验证规则
       loginFormRules: {
@@ -99,6 +102,9 @@ export default {
         }
       })
     }
+  },
+  components: {
+    MyGit
   }
 }
 </script>
@@ -154,4 +160,5 @@ export default {
     }
   }
 }
+
 </style>
