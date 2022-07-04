@@ -12,11 +12,12 @@ export default {}
 
 <style scoped lang="less">
 .myGit {
-  position: absolute;
+  position: fixed;
   right: 10px;
   bottom: 10px;
   width: 80px;
   height: 80px;
+  z-index: 999;
 
   img {
     width: 100%;
